@@ -53,10 +53,11 @@ const ListUser = () => {
 
   const handleSearch = () => {
     setSearchQuery(searchTerm); // Al presionar el botón de buscar, actualiza el estado de la consulta de búsqueda
+    setSearchTerm("");
   };
 
-  const filteredUsers = user.filter((r) =>
-    r.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra usuarios basados en la consulta de búsqueda
+  const filteredUsers = user.filter((u) =>
+    u.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra usuarios basados en la consulta de búsqueda
   );
 
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false); // Estado para el modal de creación
@@ -202,7 +203,7 @@ const ListUser = () => {
               {(CloseModal) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    Modal Title
+                    Eliminar Usuario
                   </ModalHeader>
                   <ModalBody>
                     <h3>Deseas eliminar el registro?</h3>

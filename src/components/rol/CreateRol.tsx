@@ -7,7 +7,7 @@ const CreateRole = ({ onCloseModal }: { onCloseModal: () => void }) => {
   const [name, setName] = useState("");
   const CreateRoles = () => {
     OnCreate({ name: name });
-    onCloseModal(); 
+    onCloseModal();
   }
 
   return (
@@ -19,7 +19,10 @@ const CreateRole = ({ onCloseModal }: { onCloseModal: () => void }) => {
         placeholder="Ingrese el nombre del rol"
       />
       <div className="flex justify-between mt-5">
-        <Button color="danger">
+        <Button color="danger" onClick={() => {
+          CreateRoles();
+        }}>
+
           CANCELAR
         </Button>
         <Button

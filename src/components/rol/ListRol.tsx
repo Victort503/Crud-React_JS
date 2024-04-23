@@ -24,7 +24,6 @@ const ListRol = () => {
     OnGetRoles();
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState("");
   const [isOpenModal, setIsOpenModel] = useState(false);
   const handleOpen = () => {
     setIsOpenModel(true);
@@ -46,6 +45,10 @@ const ListRol = () => {
     CloseModal();
   };
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+
   // Función para manejar cambios en el término de búsqueda
   const handleSearchChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -53,9 +56,13 @@ const ListRol = () => {
     setSearchTerm(event.target.value);
   };
 
-  // Filtrar roles según el término de búsqueda
+  const handleSearch = () => {
+    setSearchQuery(searchTerm); // Al presionar el botón de buscar, actualiza el estado de la consulta de búsqueda
+    setSearchTerm("");
+  };
+
   const filteredRoles = rol.filter((r) =>
-    r.name.toLowerCase().includes(searchTerm.toLowerCase())
+    r.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra usuarios basados en la consulta de búsqueda
   );
 
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
@@ -88,7 +95,7 @@ const ListRol = () => {
             />
             <button
               className="ml-6 h-12 w-20 mt-1 bg-blue-900 text-white rounded"
-              onClick={handleOpenCreateModal}
+              onClick={handleSearch}
             >
               Buscar
             </button>
@@ -108,7 +115,7 @@ const ListRol = () => {
                 <th className="p-4 w-1/4">Acciones</th>
               </tr>
             </thead>
-            <tbody className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full">
+            <tbody className="bg-grey-light flex flex-col items-center justify-between w-full overflow-y-auto  max-h-[400px]">
               {filteredRoles.map((r) => (
                 <tr className="flex w-full text-sm border-b border-gray-100">
                   <td className="p-4 w-1/4">{r.id}</td>
@@ -145,7 +152,7 @@ const ListRol = () => {
               {(CloseModal) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    Modal Title
+                    Eliminar Rol
                   </ModalHeader>
                   <ModalBody>
                     <h3>Deseas eliminar el registro?</h3>
