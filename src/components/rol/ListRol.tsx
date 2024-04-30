@@ -57,12 +57,12 @@ const ListRol = () => {
   };
 
   const handleSearch = () => {
-    setSearchQuery(searchTerm); // Al presionar el botón de buscar, actualiza el estado de la consulta de búsqueda
+    setSearchQuery(searchTerm);
     setSearchTerm("");
   };
 
   const filteredRoles = rol.filter((r) =>
-    r.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra usuarios basados en la consulta de búsqueda
+    r.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);

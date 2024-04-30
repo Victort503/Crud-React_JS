@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { IUsersStore } from "../types/user-store.types";
 import { ICreateUsers, IUpdateUsers } from "../types/user.types";
-import { create_users, get_users, update_users } from "../services/user.service";
+import { create_users, delete_users, get_users, update_users } from "../services/user.service";
 import { delete_rol } from "../services/rol.service";
 
 
@@ -14,7 +14,8 @@ export const useUsersStore = create<IUsersStore>((set, get) => ({
             })
         })
     }, OnDelete: (id: number) => {
-        delete_rol(id).then(() => {
+        delete_users(id)
+        .then(() => {
             get().OnGetUsers()
         })
     }, OnCreate: (payload: ICreateUsers) => {

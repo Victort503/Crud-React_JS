@@ -2,15 +2,17 @@ import { ReactElement, useState } from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { CgClapperBoard } from "react-icons/cg";
 import { FaRegUserCircle, FaUserPlus } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { IoFolder } from "react-icons/io5";
 import { MdContactEmergency, MdMovie } from "react-icons/md";
+import { useAuthStore } from "../../stores/Auth.store";
 
 interface LayoutNavProps {
     children: ReactElement;
 }
 
 export default function LayoutNav(props: LayoutNavProps) {
-
+    const { OnLogout } = useAuthStore();
     // const [open, setOpen] = useState(true)
     return (
         <>
@@ -51,7 +53,7 @@ export default function LayoutNav(props: LayoutNavProps) {
                         <div className='mt-[20px]'>
                             <MdMovie className='text-white text-3xl cursor-pointer block float-left mr-3 ' />
 
-                            <a href='/movie' className={` text-white origin-left font-medium text-1xl`}>
+                            <a href='/clientes' className={` text-white origin-left font-medium text-1xl`}>
                                 Clientes
                             </a>
                         </div>
@@ -83,7 +85,14 @@ export default function LayoutNav(props: LayoutNavProps) {
                             </a>
                         </div>
                     </div>
-
+                    <div className='p-1'>
+                        <div className='mt-[20px]'>
+                            <FiLogOut className="text-white text-4xl cursor-pointer block float-left mr-3" />
+                            <button onClick={OnLogout} className={` text-white origin-left font-medium text-1xl`}>
+                                Cerrar Sesion
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div className={`w-full`}>
                     {props.children}

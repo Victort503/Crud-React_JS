@@ -14,9 +14,9 @@ interface Props {
   title: string
 }
 
-function ModalGlobal(props: Props) {
+function ModalGlobalCreate(props: Props) {
   return (
-    <Modal backdrop="blur" isOpen={props.IsOpen} onClose={props.OnClose}>
+    <Modal backdrop="blur" size="xl" isOpen={props.IsOpen} onClose={props.OnClose}>
       <ModalContent>
         {() => (
           <>
@@ -33,4 +33,4 @@ function ModalGlobal(props: Props) {
   );
 }
 
-export default ModalGlobal;
+export default ModalGlobalCreate;

@@ -15,6 +15,7 @@ import {
 import CreateUser from "./CreateUser";
 import UpdateUser from "./UpdateUser";
 import LayoutNav from "../Layout/Layout";
+import ModalGlobalCreate from "../../global/ModalGlobalCreate";
 
 const ListUser = () => {
   const { user, OnGetUsers, OnDelete } = useUsersStore();
@@ -41,8 +42,10 @@ const ListUser = () => {
 
   const HandleDelete = () => {
     OnDelete(userId);
+
     CloseModal();
   };
+
 
   const [searchTerm, setSearchTerm] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -52,15 +55,15 @@ const ListUser = () => {
   };
 
   const handleSearch = () => {
-    setSearchQuery(searchTerm); // Al presionar el botón de buscar, actualiza el estado de la consulta de búsqueda
+    setSearchQuery(searchTerm);
     setSearchTerm("");
   };
 
   const filteredUsers = user.filter((u) =>
-    u.name.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra usuarios basados en la consulta de búsqueda
+    u.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false); // Estado para el modal de creación
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
 
   const handleOpenCreateModal = () => {
     setIsOpenCreateModal(true);
@@ -70,6 +73,7 @@ const ListUser = () => {
     setIsOpenCreateModal(false);
   };
 
+  
   return (
     <>
       <LayoutNav>
@@ -119,6 +123,7 @@ const ListUser = () => {
             <tbody className="bg-grey-light flex flex-col items-center  justify-between  w-full overflow-y-auto  max-h-[400px]">
               {filteredUsers.map((u) => (
                 <tr className="flex w-full text-sm border-b border-gray-100">
+
                   <td className="p-4 w-1/4">{u.id}</td>
                   <td className="p-4 w-1/4">{u.rol.name}</td>
                   <td className="p-4 w-1/4">{u.name}</td>
@@ -154,19 +159,11 @@ const ListUser = () => {
               ))}
             </tbody>
           </table>
-          <Modal
-            backdrop="blur"
-            isOpen={isOpenCreateModal}
-            onClose={handleCloseCreateModal}
-          >
-            <ModalContent>
-              <ModalHeader>Agregar Rol</ModalHeader>
-              <ModalBody>
-                <CreateUser onCloseModal={handleCloseCreateModal} />
-              </ModalBody>
-              <ModalFooter></ModalFooter>
-            </ModalContent>
-          </Modal>
+
+          <ModalGlobalCreate title="Crear Usuario" IsOpen={isOpenCreateModal} OnClose={handleCloseCreateModal}>
+            <CreateUser onCloseModal={handleCloseCreateModal} />
+          </ModalGlobalCreate>
+
           <Modal
             backdrop="blur"
             isOpen={isOpenEditModal}
@@ -185,7 +182,12 @@ const ListUser = () => {
                           <UpdateUser
                             key={u.id}
                             id={u.id}
+                            rolName={u.rol.name}
                             name={u.name}
+                            lastName={u.lastName}
+                            email={u.email}
+                            rolId={u.rol.id}
+                            password={u.password}
                             closeModal={closeEditModal}
                           />
                         );
